@@ -1,0 +1,16 @@
+kaggle
+numpy
+matplotlib
+pandas
+scikit-learn
+python-box
+opencv-python
+albumentations
+tqdm
+python-dotenv
+h5py
+transformers
+pyarrow
+ipykernel
+seaborn
+polars
