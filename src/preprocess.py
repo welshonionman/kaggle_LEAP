@@ -1,23 +1,16 @@
 import numpy as np
 
-from src.constants import (
-    FEAT_COLS_MEAN,
-    FEAT_COLS_STD,
-    TARGET_COLS_MEAN,
-    TARGET_COLS_STD,
-)
-
 
 def standardize(x_train, y_train, min_std):
-    mean_x = np.array(FEAT_COLS_MEAN)
-    mean_y = np.array(TARGET_COLS_MEAN)
+    mean_x = x_train.mean(axis=0)
+    mean_y = y_train.mean(axis=0)
 
-    std_x = np.maximum(np.array(FEAT_COLS_STD), min_std)
-    std_y = np.maximum(np.array(TARGET_COLS_STD), min_std)
+    std_x = np.maximum(x_train.std(axis=0), min_std)
+    std_y = np.maximum(np.sqrt((y_train * y_train).mean(axis=0)), min_std)
 
     x_train = (x_train - mean_x.reshape(1, -1)) / std_x.reshape(1, -1)
     y_train = (y_train - mean_y.reshape(1, -1)) / std_y.reshape(1, -1)
-    return x_train, y_train
+    return x_train, y_train, mean_x, std_x, mean_y, std_y
 
 
 def normalize(x_train, y_train):
