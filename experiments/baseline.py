@@ -42,13 +42,13 @@ PATIENCE = 10
 EXP_NAME = Path(__file__).stem
 MODEL_PATH = f"/kaggle/weights/{EXP_NAME}.pth"
 SUB_PATH = "./submission.csv"
-WANDB_MODE = "online"
+WANDB_MODE = "disabled"
 
 if __name__ == "__main__":
     weights = load_weights()
     set_seed()
 
-    df_train = pl.read_csv(TRAIN_PATH, n_rows=3_000_000)
+    df_train = pl.read_csv(TRAIN_PATH, n_rows=2_500_000)
     # df_train = pl.read_csv(TRAIN_PATH, n_rows=100_000)
 
     for target in weights:
@@ -103,6 +103,7 @@ if __name__ == "__main__":
         for batch_idx, (inputs, labels) in pbar_train:
             inputs, labels = inputs.to(DEVICE), labels.to(DEVICE)
             optimizer.zero_grad()
+            print(inputs.shape)
             outputs = model(inputs)
             loss = criterion(outputs, labels)
             loss.backward()

@@ -6,7 +6,7 @@ def standardize(x_train, y_train, min_std):
     mean_y = y_train.mean(axis=0)
 
     std_x = np.maximum(x_train.std(axis=0), min_std)
-    std_y = np.maximum(np.sqrt((y_train * y_train).mean(axis=0)), min_std)
+    std_y = np.maximum(y_train.std(axis=0), min_std)
 
     x_train = (x_train - mean_x.reshape(1, -1)) / std_x.reshape(1, -1)
     y_train = (y_train - mean_y.reshape(1, -1)) / std_y.reshape(1, -1)
